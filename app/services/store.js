@@ -34,5 +34,18 @@ export default Ember.Service.extend({
     //   { id: '2', name: 'Gregg' }
     // ];
   },
-  getProducts() { return products; }
+  getProducts() { return products; },
+  newOrder() {
+    return Order.create({
+      items: products.map((product) => {
+        return LineItem.create({
+          product: product
+        });
+      })
+    });
+  },
+  saveOrder(order) {
+    order.set('id', 9999);
+    orders.pushObject(order);
+  }
 });
